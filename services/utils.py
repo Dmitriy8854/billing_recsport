@@ -4,7 +4,6 @@ import json
 import os
 from dotenv import load_dotenv
 
-
 # test_work_with_secrets.py
 
 load_dotenv()
@@ -14,8 +13,8 @@ password = os.getenv("PASSWORD")
 
 
 def create_pay(clientid, orderid, client_email, service_name, client_phone):
-    user = os.getenv("USER")  # Логин в личном кабинете PayKeeper
-    password = os.getenv("PASSWORD")  # Соответствующий логину пароль
+    # user = os.getenv("USER")  # Логин в личном кабинете PayKeeper
+    # password = os.getenv("PASSWORD")  # Соответствующий логину пароль
 
     base64_auth = base64.b64encode(
         f"{user}:{password}".encode()
@@ -60,10 +59,10 @@ def get_pay_status(invoice_id):
         "Authorization": "Basic " + base64_auth,
     }
     server_paykeeper = "https://intelp-vk.server.paykeeper.ru"
-    # invoice_id = "20170724151214976"
+
     # uri = "/info/invoice/byid/invoice_id/"
 
-    uri = "/info/invoice/byid/" + invoice_id
+    uri = "/info/invoice/byid/?id=" + invoice_id
     response = requests.get(server_paykeeper + uri, headers=headers)
     print(response.status_code)
     print(response.text)

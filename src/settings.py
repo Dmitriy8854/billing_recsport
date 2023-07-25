@@ -125,3 +125,12 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "users.User"
+
+REDIS_HOST = "0.0.0.0"
+REDIS_PORT = "6379"
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_BROKER_TRANSPORT_OPTIONS = {"visibility_imeout": 3600}
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+CELERY_ACCEPT_CONTENT = ["applications/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
