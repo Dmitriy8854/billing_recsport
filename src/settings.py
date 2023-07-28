@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from celery.schedules import crontab
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +39,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "djoser",
+    "django_celery_beat",
     "users",
     "billing",
     "services",
@@ -115,6 +120,22 @@ USE_I18N = True
 USE_TZ = True
 
 
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+}
+
+
+SIMPLE_JWT = {
+    # Устанавливаем срок жизни токена
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -134,3 +155,12 @@ CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 CELERY_ACCEPT_CONTENT = ["applications/json"]
 CELERY_TASK_SERIALIZER = "json"
 CELERY_RESULT_SERIALIZER = "json"
+
+# CELERY_BEAT_SCHEDULE = {
+#    'monday-statistics-email': {
+#        'task': 'myproject.apps.statistics.tasks.monday_email',
+#        'schedule': crontab(day_of_week=1, hour=7),
+#    },
+# }
+# celery -A proj beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+# CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'

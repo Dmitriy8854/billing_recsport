@@ -6,12 +6,16 @@ from .serializers import SubscriptionSerializer
 import base64
 import json
 import requests
+from .tasks import pay_status
 
 
 class SubscriptionViewSet(GenericViewSet):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
     # Create your views here.
+
+    def create(self, request):
+        pay_status.delay(status)
 
     def create(self, request):
         user = "admin"  # Логин в личном кабинете PayKeeper
