@@ -1,14 +1,14 @@
-from rest_framework.routers import DefaultRouter
+# from rest_framework.routers import DefaultRouter
 
-from django.urls import include, path
+# from django.urls import include, path
 
-from cats.views import OrderViewSet
-
-
-router = DefaultRouter()
-router.register("order", OrderViewSet)
+# from cats.views import OrderViewSet
 
 
-urlpatterns = [
-    path("", include(router.urls)),
-]
+# router = DefaultRouter()
+# router.register("order", OrderViewSet)
+
+
+# urlpatterns = [
+#     path("", include(router.urls)),
+# ]

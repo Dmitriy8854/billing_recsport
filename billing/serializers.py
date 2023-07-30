@@ -16,3 +16,4 @@ class OrderSerializer(ModelSerializer):
     class Meta:
         model = Order
         fields = "__all__"
+        read_only_fields = ["client", "invoice_id", "payment_url", "order_id", "status"]
