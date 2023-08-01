@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  database:
+    image: postgres:15.2-alpine
+    env_file:
+      - .postgres.env
+    ports:
+      - '5432:5432'
+    # volumes:
+    #   - ./.data/pg/mount:/var/lib/postgresql/data
+  backend:
+    build:
+      context: .
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - database
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.data/static:/static
+      - ./.data/media:/media
+    env_file:
+      - .django.env
+      - services/.env
+      - .postgres.env
+  redis:
+    image: redis
+  celery:
+    build:
+      context: .
+    command: celery -A src worker -l info
+    env_file:
+      - .django.env
+      - services/.env
+      - .postgres.env
+    depends_on:
+      - database
+  celery-beat:
+    build:
+      context: .
+    command: celery -A src beat -l info
+    env_file:
+      - .django.env
+      - services/.env
+      - .postgres.env
+    depends_on:
+      - database

@@ -8,8 +8,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-user = os.getenv("USER")
-password = os.getenv("PASSWORD")
+user = os.getenv("PAYMENT_USER")
+password = os.getenv("PAYMENT_PASSWORD")
 
 
 def create_pay(clientid, orderid, client_email, service_name, client_phone):
