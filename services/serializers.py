@@ -9,7 +9,7 @@ from rest_framework.serializers import (
     ModelSerializer,
     ValidationError,
 )
-from .models import Order
+from services.models import Subscription
 
 
 class SubscriptionSerializer(ModelSerializer):
