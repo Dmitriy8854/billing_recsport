@@ -48,8 +48,8 @@ def create_pay(clientid, orderid, client_email, service_name, client_phone):
 
 
 def get_pay_status(invoice_id):
-    user = "admin"  # Логин в личном кабинете PayKeeper
-    password = "kVbUY2lbe5Ebr2VH"  # Соответствующий логину пароль
+    # user = "******"  - Логин в личном кабинете PayKeeper
+    # password = "*********"  - Соответствующий логину пароль
     base64_auth = base64.b64encode(
         f"{user}:{password}".encode()
     ).decode()  # Формируем base64 хэш
@@ -68,6 +68,7 @@ def get_pay_status(invoice_id):
     print(response.text)
     # data = json.loads(response.text)
     data = json.loads(response.text)
+    print(data)
     return data["status"]
 
 
