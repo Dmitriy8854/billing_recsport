@@ -64,3 +64,17 @@ class User(AbstractUser):
     @property
     def is_admin(self):
         return self.role == self.ADMIN
+
+    @property
+    def balance(self):
+        # return sum(self.order_set.all().values_list("amount", flat=True))
+        return sum(
+            self.order_set.filter(status="SUCCESS").values_list("sum", flat=True)
+        )
+
+    @property
+    def debit(self):
+        # return sum(self.order_set.all().values_list("amount", flat=True))
+        return sum(
+            self.order_set.filter(status="SUCCESS").values_list("sum", flat=True)
+        ) - sum(self.debit_set.filter(status="SUCCESS").values_list("sum", flat=True))

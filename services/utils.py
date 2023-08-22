@@ -68,6 +68,7 @@ def get_pay_status(invoice_id):
     print(response.text)
     # data = json.loads(response.text)
     data = json.loads(response.text)
+    print(data)
     return data["status"]
 
 
