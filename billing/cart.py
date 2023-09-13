@@ -1,6 +1,8 @@
-from acquiring.models import Product
+from services.models import TarifDetail  # Product
 from decimal import Decimal
 from django.conf import settings
+
+CART_SESSION_ID = "cart"
 
 
 class Cart(object):
@@ -43,7 +45,7 @@ class Cart(object):
         """Проходим по товарам корзины и получаем соответствующие объекты Product."""
         product_ids = self.cart.keys()
         # Получаем объекты модели Product и передаем их в корзину.
-        products = Product.objects.filter(id__in=product_ids)
+        products = Tarifdetail.objects.filter(id__in=product_ids)
         cart = self.cart.copy()
         for product in products:
             cart[str(product.id)]["product"] = product
