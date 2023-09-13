@@ -78,3 +78,21 @@ class User(AbstractUser):
         return sum(
             self.order_set.filter(status="SUCCESS").values_list("sum", flat=True)
         ) - sum(self.debit_set.filter(status="SUCCESS").values_list("sum", flat=True))
+
+
+class Group(models.Model):
+    groupname = models.CharField(max_length=150, blank=True, unique=True)
+    trainer = models.ForeignKey(
+        "users.User", on_delete=models.PROTECT, related_name="adminisration_groups"
+    )
+    # sportsmen = models.ManyToManyField(
+    #     "users.User", on_delete=models.PROTECT, related_name="pet"
+    # )
+    # date_creation = models.DateTimeField(auto_now_add=True)
+
+
+class GroupMember(models.Model):
+    group = models.ForeignKey(Group, models.PROTECT, "members")
+    sportsman = models.OneToOneField(
+        "users.User", on_delete=models.PROTECT, related_name="group"
+    )
