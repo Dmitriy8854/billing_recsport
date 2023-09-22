@@ -1,5 +1,6 @@
 from djoser.serializers import UserSerializer
-from .models import Group
+
+from users.models import User, Group
 
 
 class CustomUserSerializer(UserSerializer):

@@ -22,4 +22,9 @@ urlpatterns = [
     path("auth/", include("djoser.urls")),
     path("auth/", include("djoser.urls.jwt")),
     path("api/", include("services.urls")),
+    path("users/", include("users.urls")),
+    path("users/", include("django.contrib.auth.urls")),
 ]
+
+
+# path('auth/', include('django.contrib.auth.urls')),
