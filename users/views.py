@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from django.contrib.auth import login
+from django.views.generic import FormView
+from .forms import LoginForm
+from rest_framework import viewsets
+from rest_framework.decorators import action
 
 # Create your views here.
 from djoser.views import UserViewSet
@@ -33,3 +38,18 @@ class GroupViewSet(viewsets.ModelViewSet):
 
         Group.objects.create(admin=admin, sportsmen=sportsmen)
         return Response(serializer.data, status=HTTP_201_CREATED)
+
+
+class UserLogin(FormView):
+    queryset = User.objects.all()
+    form_class = LoginForm
+    template_name = "users/signup.html"
+
+    def form_valid(self, form):
+        user = User.objects.filter(username=form.cleaned_data["username"])
+        if user is None:
+            return HttpResponseRedirect("/login")
+        if not user.check_password(form.cleaned_data["password"]):
+            return HttpResponseRedirect("/login")
+        login(self.request, user)
+        return HttpResponseRedirect("/")

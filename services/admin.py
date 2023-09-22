@@ -7,8 +7,8 @@ from services.models import Subscription
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
-    list_display = ("name", "price")
-    list_filter = ("name", "price")
+    list_display = ("sportsman",)
+    list_filter = ("sportsman",)
 
     # def count_favorites(self, obj):
     #     return obj.favorites.count()

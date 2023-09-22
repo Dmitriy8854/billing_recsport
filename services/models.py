@@ -15,7 +15,7 @@ class Tarif(models.Model):
 # Create your models here.
 class Subscription(models.Model):
     sportsman = models.OneToOneField(
-        "users.User", on_delete=models.PROTECT, related_name="group"
+        "users.User", on_delete=models.PROTECT, related_name="subscriptions"
     )
     start = models.DateTimeField(default=None, null=True)
     finish = models.DateTimeField(default=None, null=True)
