@@ -7,7 +7,7 @@
 
 # router = DefaultRouter()
 # router.register("order", OrderViewSet)
-
+# app_name = 'billing'
 
 # urlpatterns = [
 #     path("", include(router.urls)),

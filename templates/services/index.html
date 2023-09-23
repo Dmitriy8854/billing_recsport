@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+Это главная страница проекта «Биллинг»!
+{% endblock %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+</head>
+
+<body>
+    <header>
+        <!-- Это тег шаблонизатора include, сюда будет включён код
+      из файла includes/header.html -->
+        {% include 'includes/header.html' %}
+    </header>
+    <main>
+        Информация на главной странице
+    </main>
+    <footer>
+        {% include 'includes/footer.html' %}
+    </footer>
+</body>
+
+</html>
+<!-- {% extends 'base.html'%}
+{% load static %}
+{% block title %}{{ title }}{% endblock title %}
+  {% block content %}
+  {% load cache %}
+  {% include 'posts/includes/switcher.html' %}
+    <section>
+    
+        <h2>Главная страница</h2>
+      {% cache 20 index %}
+      <div class="posts">
+      {% for post in page_obj %}
+         
+        <h1>Последние обновления на сайте</h1>
+         
+          {% include 'includes/article.html' %}
+        
+      {% endfor %}
+      {% endcache %} 
+      </div> 
+    </section>
+{% endblock content %} -->

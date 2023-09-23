@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "djoser",
     "django_celery_beat",
+    "core",
     "users",
     "billing",
     "services",
@@ -59,10 +60,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "src.urls"
 
+TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        "DIRS": [TEMPLATES_DIR],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -70,6 +72,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "core.context_processors.year.year",
             ],
         },
     },
@@ -181,3 +184,5 @@ CELERY_RESULT_BACKEND = "redis://redis:6379/0"
 
 
 DJANGO_SETTINGS_MODULE = "src.settings"
+LOGIN_URL = "users:login"
+LOGIN_REDIRECT_URL = "services:index"

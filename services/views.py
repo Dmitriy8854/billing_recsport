@@ -11,6 +11,7 @@ from .tasks import pay_status
 from .utils import create_pay
 from billing.serializers import OrderSerializer
 from rest_framework.response import Response
+from django.http import HttpResponse
 
 
 class OrderViewSet(GenericViewSet):
@@ -35,3 +36,6 @@ class OrderViewSet(GenericViewSet):
         return Response(serializer.data)
 
 
+# Главная страница
+def index(request):
+    return HttpResponse("Главная страница")

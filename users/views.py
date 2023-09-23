@@ -1,14 +1,27 @@
 from django.shortcuts import render
 from django.contrib.auth import login
-from django.views.generic import FormView
-from .forms import LoginForm
+
+# from django.views.generic import FormView
+
+# from .forms import LoginForm
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from django.views.generic import CreateView
+from django.shortcuts import render
 
 # Create your views here.
 from djoser.views import UserViewSet
 from .models import User
 from .serializers import CustomUserSerializer, GroupSerializer
+from django.urls import reverse_lazy
+from .forms import CreationForm
+
+
+class SignUp(CreateView):
+    form_class = CreationForm
+    # После успешной регистрации перенаправляем пользователя на главную.
+    success_url = reverse_lazy("services:index")
+    template_name = "users/signup.html"
 
 
 class CustomUserViewSet(UserViewSet):
@@ -40,16 +53,16 @@ class GroupViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=HTTP_201_CREATED)
 
 
-class UserLogin(FormView):
-    queryset = User.objects.all()
-    form_class = LoginForm
-    template_name = "users/signup.html"
+# class UserLogin(FormView):
+#     queryset = User.objects.all()
+#     form_class = LoginForm
+#     template_name = "users/signup.html"
 
-    def form_valid(self, form):
-        user = User.objects.filter(username=form.cleaned_data["username"])
-        if user is None:
-            return HttpResponseRedirect("/login")
-        if not user.check_password(form.cleaned_data["password"]):
-            return HttpResponseRedirect("/login")
-        login(self.request, user)
-        return HttpResponseRedirect("/")
+#     def form_valid(self, form):
+#         user = User.objects.filter(username=form.cleaned_data["username"])
+#         if user is None:
+#             return HttpResponseRedirect("/login")
+#         if not user.check_password(form.cleaned_data["password"]):
+#             return HttpResponseRedirect("/login")
+#         login(self.request, user)
+#         return HttpResponseRedirect("/")
