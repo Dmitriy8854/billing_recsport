@@ -12,4 +12,4 @@ class CustomUserSerializer(UserSerializer):
 class GroupSerializer(UserSerializer):
     class Meta:
         model = Group
-        fields = ("groupname", "admin", "sportsmen", "date_creation")
+        fields = ("groupname", "trainer")

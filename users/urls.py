@@ -1,7 +1,8 @@
 from django.contrib.auth import views
-from django.urls import path
+from django.urls import include, path
 from .views import SignUp
-
+from rest_framework.routers import DefaultRouter
+from .views import GroupViewSet
 # from .views import UserLogin
 from django.contrib.auth.views import (
     LoginView,
@@ -14,12 +15,19 @@ from django.contrib.auth.views import (
     PasswordResetView,
 )
 
+router = DefaultRouter()
+router.register("group", GroupViewSet)
+
+
+
+
 app_name = "users"
 
 
 urlpatterns = [
     #   path("login/", UserLogin.as_view(), name="login"),
     # Авторизация
+    path("", include(router.urls)),
     path("signup/", SignUp.as_view(), name="signup"),
     path("login/", LoginView.as_view(template_name="users/login.html"), name="login"),
     # Выход
