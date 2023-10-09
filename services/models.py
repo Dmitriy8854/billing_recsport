@@ -17,6 +17,8 @@ class Subscription(models.Model):
     sportsman = models.OneToOneField(
         "users.User", on_delete=models.PROTECT, related_name="subscriptions"
     )
+    type = models.CharField(max_length=120, choices=SubscriptionChoices.choices, default=SubscriptionChoices.MOUNTH.value)
+    count_minute = models.IntegerField(default=0)
     start = models.DateTimeField(default=None, null=True)
     finish = models.DateTimeField(default=None, null=True)
     is_active = models.BooleanField(default=True)

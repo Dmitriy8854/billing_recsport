@@ -2,7 +2,7 @@ from django.contrib.auth import views
 from django.urls import include, path
 from .views import SignUp
 from rest_framework.routers import DefaultRouter
-from .views import GroupViewSet
+from .views import GroupViewSet, GroupMemberViewSet
 # from .views import UserLogin
 from django.contrib.auth.views import (
     LoginView,
@@ -17,7 +17,7 @@ from django.contrib.auth.views import (
 
 router = DefaultRouter()
 router.register("group", GroupViewSet)
-
+router.register("groupmem", GroupMemberViewSet)
 
 
 

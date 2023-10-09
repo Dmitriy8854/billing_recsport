@@ -11,8 +11,8 @@ from django.shortcuts import render
 
 # Create your views here.
 from djoser.views import UserViewSet
-from .models import User, Group
-from .serializers import CustomUserSerializer, GroupSerializer
+from .models import User, Group, GroupMember
+from .serializers import CustomUserSerializer, GroupSerializer, GroupMemberSerializer
 from django.urls import reverse_lazy
 from .forms import CreationForm
 
@@ -31,6 +31,10 @@ class CustomUserViewSet(UserViewSet):
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     queryset = Group.objects.all()
+
+class GroupMemberViewSet(viewsets.ModelViewSet):
+    serializer_class = GroupMemberSerializer
+    queryset = GroupMember.objects.all()
 
     # def get_queryset(self):
     #     # Получаем id тренера/админа из эндпоинта

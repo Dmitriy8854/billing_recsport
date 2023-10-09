@@ -22,7 +22,7 @@ class Order(models.Model):
     order_id = models.CharField(max_length=120, default=uuid4)
     invoice_id = models.CharField(max_length=120, default="")
     payment_url = models.CharField(max_length=120, default="")
-
+    amount_tracker = models.IntegerField(default=0)
     def __str__(self):
         return f"Заказ: {self.client - self.subscription}"
 
